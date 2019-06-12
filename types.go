@@ -4,7 +4,7 @@ import (
 	"net/http"
 )
 
-//Token represents the OAuth token returned by Zuora.
+// Token represents the OAuth token returned by Zuora.
 type Token struct {
 	AccessToken string `json:"access_token"`
 	TokenType   string `json:"token_type"`
@@ -13,10 +13,10 @@ type Token struct {
 	Jti         string `json:"jti"`
 }
 
-//ConfigOption helper function to modify current Config struct
+// ConfigOption helper function to modify current Config struct
 type ConfigOption func(*Config)
 
-//Config is the base configuration to return ZuoraApi
+// Config is the base configuration to return ZuoraApi
 type Config struct {
 	HTTPClient   *http.Client
 	BaseURL      string
@@ -25,20 +25,20 @@ type Config struct {
 	tokenStore   TokenStorer
 }
 
-//TokenStorer handles token renewal with two simple methods.
-//Token() returns a boolean to indicate a token is valid and if valid, it will return the active token.
-//Update() causes a side-effect to update a token in whichever backing store you choose.
+// TokenStorer handles token renewal with two simple methods.
+// Token() returns a boolean to indicate a token is valid and if valid, it will return the active token.
+// Update() causes a side-effect to update a token in whichever backing store you choose.
 type TokenStorer interface {
 	Token() (bool, *Token)
 	Update(*Token)
 }
 
-//Querier One who, or that which, queries actions
+// Querier One who, or that which, queries actions
 type Querier interface {
 	Build() string
 }
 
-//Product with default fields from Zuora. It does not include custom fields.
+// Product with default fields from Zuora. It does not include custom fields.
 type Product struct {
 	ID                 string `json:"Id"`
 	Category           string `json:"Category,omitempty"`
@@ -53,7 +53,7 @@ type Product struct {
 	Description        string `json:"Description,omitempty"`
 }
 
-//ProductRatePlan with default fields from Zuora. It does not include custom fields.
+// ProductRatePlan with default fields from Zuora. It does not include custom fields.
 type ProductRatePlan struct {
 	ActiveCurrencies   string `json:"ActiveCurrencies,omitempty"`
 	ProductID          string `json:"ProductId"`
@@ -197,98 +197,104 @@ type AccountSummary struct {
 }
 
 type SubscriptionResponse struct {
-	Subscriptions []struct {
-		ID                        string  `json:"id"`
-		AccountID                 string  `json:"accountId"`
-		AccountNumber             string  `json:"accountNumber"`
-		AccountName               string  `json:"accountName"`
-		InvoiceOwnerAccountID     string  `json:"invoiceOwnerAccountId"`
-		InvoiceOwnerAccountNumber string  `json:"invoiceOwnerAccountNumber"`
-		InvoiceOwnerAccountName   string  `json:"invoiceOwnerAccountName"`
-		SubscriptionNumber        string  `json:"subscriptionNumber"`
-		TermType                  string  `json:"termType"`
-		InvoiceSeparately         bool    `json:"invoiceSeparately"`
-		ContractEffectiveDate     string  `json:"contractEffectiveDate"`
-		ServiceActivationDate     string  `json:"serviceActivationDate"`
-		CustomerAcceptanceDate    string  `json:"customerAcceptanceDate"`
-		SubscriptionStartDate     string  `json:"subscriptionStartDate"`
-		TermStartDate             string  `json:"termStartDate"`
-		TermEndDate               string  `json:"termEndDate"`
-		InitialTerm               int     `json:"initialTerm"`
-		InitialTermPeriodType     string  `json:"initialTermPeriodType"`
-		CurrentTerm               int     `json:"currentTerm"`
-		CurrentTermPeriodType     string  `json:"currentTermPeriodType"`
-		AutoRenew                 bool    `json:"autoRenew"`
-		RenewalSetting            string  `json:"renewalSetting"`
-		RenewalTerm               int     `json:"renewalTerm"`
-		RenewalTermPeriodType     string  `json:"renewalTermPeriodType"`
-		ContractedMrr             float64 `json:"contractedMrr"`
-		TotalContractedValue      int     `json:"totalContractedValue"`
-		Notes                     string  `json:"notes"`
-		Status                    string  `json:"status"`
-		RatePlans                 []struct {
-			ID                string `json:"id"`
-			ProductID         string `json:"productId"`
-			ProductName       string `json:"productName"`
-			ProductSku        string `json:"productSku"`
-			ProductRatePlanID string `json:"productRatePlanId"`
-			RatePlanName      string `json:"ratePlanName"`
-			RatePlanCharges   []struct {
-				ID                             string        `json:"id"`
-				OriginalChargeID               string        `json:"originalChargeId"`
-				ProductRatePlanChargeID        string        `json:"productRatePlanChargeId"`
-				Number                         string        `json:"number"`
-				Name                           string        `json:"name"`
-				Type                           string        `json:"type"`
-				Model                          string        `json:"model"`
-				Uom                            interface{}   `json:"uom"`
-				Version                        int           `json:"version"`
-				PricingSummary                 string        `json:"pricingSummary"`
-				PriceChangeOption              string        `json:"priceChangeOption"`
-				PriceIncreasePercentage        interface{}   `json:"priceIncreasePercentage"`
-				Currency                       string        `json:"currency"`
-				Price                          int           `json:"price"`
-				Tiers                          interface{}   `json:"tiers"`
-				IncludedUnits                  interface{}   `json:"includedUnits"`
-				OveragePrice                   interface{}   `json:"overagePrice"`
-				DiscountPercentage             interface{}   `json:"discountPercentage"`
-				DiscountAmount                 interface{}   `json:"discountAmount"`
-				ApplyDiscountTo                interface{}   `json:"applyDiscountTo"`
-				DiscountLevel                  interface{}   `json:"discountLevel"`
-				DiscountClass                  interface{}   `json:"discountClass"`
-				DiscountApplyDetails           []interface{} `json:"discountApplyDetails"`
-				BillingDay                     string        `json:"billingDay"`
-				ListPriceBase                  string        `json:"listPriceBase"`
-				BillingPeriod                  string        `json:"billingPeriod"`
-				SpecificBillingPeriod          interface{}   `json:"specificBillingPeriod"`
-				BillingTiming                  string        `json:"billingTiming"`
-				BillingPeriodAlignment         string        `json:"billingPeriodAlignment"`
-				Quantity                       int           `json:"quantity"`
-				SmoothingModel                 interface{}   `json:"smoothingModel"`
-				NumberOfPeriods                interface{}   `json:"numberOfPeriods"`
-				OverageCalculationOption       interface{}   `json:"overageCalculationOption"`
-				OverageUnusedUnitsCreditOption interface{}   `json:"overageUnusedUnitsCreditOption"`
-				UnusedUnitsCreditRates         interface{}   `json:"unusedUnitsCreditRates"`
-				UsageRecordRatingOption        interface{}   `json:"usageRecordRatingOption"`
-				Segment                        int           `json:"segment"`
-				EffectiveStartDate             string        `json:"effectiveStartDate"`
-				EffectiveEndDate               string        `json:"effectiveEndDate"`
-				ProcessedThroughDate           interface{}   `json:"processedThroughDate"`
-				ChargedThroughDate             interface{}   `json:"chargedThroughDate"`
-				Done                           bool          `json:"done"`
-				TriggerDate                    interface{}   `json:"triggerDate"`
-				TriggerEvent                   string        `json:"triggerEvent"`
-				EndDateCondition               string        `json:"endDateCondition"`
-				UpToPeriodsType                interface{}   `json:"upToPeriodsType"`
-				UpToPeriods                    interface{}   `json:"upToPeriods"`
-				SpecificEndDate                interface{}   `json:"specificEndDate"`
-				Mrr                            float64       `json:"mrr"`
-				Dmrc                           float64       `json:"dmrc"`
-				Tcv                            int           `json:"tcv"`
-				Dtcv                           int           `json:"dtcv"`
-				Description                    string        `json:"description"`
-			} `json:"ratePlanCharges"`
-		} `json:"ratePlans"`
-	} `json:"subscriptions"`
-	Success bool `json:"success"`
+	Subscriptions []Subscription `json:"subscriptions"`
+	Success       bool           `json:"success"`
+}
+
+type Subscription struct {
+	ID                        string     `json:"id"`
+	AccountID                 string     `json:"accountId"`
+	AccountNumber             string     `json:"accountNumber"`
+	AccountName               string     `json:"accountName"`
+	InvoiceOwnerAccountID     string     `json:"invoiceOwnerAccountId"`
+	InvoiceOwnerAccountNumber string     `json:"invoiceOwnerAccountNumber"`
+	InvoiceOwnerAccountName   string     `json:"invoiceOwnerAccountName"`
+	SubscriptionNumber        string     `json:"subscriptionNumber"`
+	TermType                  string     `json:"termType"`
+	InvoiceSeparately         bool       `json:"invoiceSeparately"`
+	ContractEffectiveDate     string     `json:"contractEffectiveDate"`
+	ServiceActivationDate     string     `json:"serviceActivationDate"`
+	CustomerAcceptanceDate    string     `json:"customerAcceptanceDate"`
+	SubscriptionStartDate     string     `json:"subscriptionStartDate"`
+	TermStartDate             string     `json:"termStartDate"`
+	TermEndDate               string     `json:"termEndDate"`
+	InitialTerm               int        `json:"initialTerm"`
+	InitialTermPeriodType     string     `json:"initialTermPeriodType"`
+	CurrentTerm               int        `json:"currentTerm"`
+	CurrentTermPeriodType     string     `json:"currentTermPeriodType"`
+	AutoRenew                 bool       `json:"autoRenew"`
+	RenewalSetting            string     `json:"renewalSetting"`
+	RenewalTerm               int        `json:"renewalTerm"`
+	RenewalTermPeriodType     string     `json:"renewalTermPeriodType"`
+	ContractedMrr             float64    `json:"contractedMrr"`
+	TotalContractedValue      int        `json:"totalContractedValue"`
+	Notes                     string     `json:"notes"`
+	Status                    string     `json:"status"`
+	RatePlans                 []RatePlan `json:"ratePlans"`
+}
+
+type RatePlan struct {
+	ID                string           `json:"id"`
+	ProductID         string           `json:"productId"`
+	ProductName       string           `json:"productName"`
+	ProductSku        string           `json:"productSku"`
+	ProductRatePlanID string           `json:"productRatePlanId"`
+	RatePlanName      string           `json:"ratePlanName"`
+	RatePlanCharges   []RatePlanCharge `json:"ratePlanCharges"`
+}
+
+type RatePlanCharge struct {
+	ID                             string        `json:"id"`
+	OriginalChargeID               string        `json:"originalChargeId"`
+	ProductRatePlanChargeID        string        `json:"productRatePlanChargeId"`
+	Number                         string        `json:"number"`
+	Name                           string        `json:"name"`
+	Type                           string        `json:"type"`
+	Model                          string        `json:"model"`
+	Uom                            interface{}   `json:"uom"`
+	Version                        int           `json:"version"`
+	PricingSummary                 string        `json:"pricingSummary"`
+	PriceChangeOption              string        `json:"priceChangeOption"`
+	PriceIncreasePercentage        interface{}   `json:"priceIncreasePercentage"`
+	Currency                       string        `json:"currency"`
+	Price                          int           `json:"price"`
+	Tiers                          interface{}   `json:"tiers"`
+	IncludedUnits                  interface{}   `json:"includedUnits"`
+	OveragePrice                   interface{}   `json:"overagePrice"`
+	DiscountPercentage             interface{}   `json:"discountPercentage"`
+	DiscountAmount                 interface{}   `json:"discountAmount"`
+	ApplyDiscountTo                interface{}   `json:"applyDiscountTo"`
+	DiscountLevel                  interface{}   `json:"discountLevel"`
+	DiscountClass                  interface{}   `json:"discountClass"`
+	DiscountApplyDetails           []interface{} `json:"discountApplyDetails"`
+	BillingDay                     string        `json:"billingDay"`
+	ListPriceBase                  string        `json:"listPriceBase"`
+	BillingPeriod                  string        `json:"billingPeriod"`
+	SpecificBillingPeriod          interface{}   `json:"specificBillingPeriod"`
+	BillingTiming                  string        `json:"billingTiming"`
+	BillingPeriodAlignment         string        `json:"billingPeriodAlignment"`
+	Quantity                       int           `json:"quantity"`
+	SmoothingModel                 interface{}   `json:"smoothingModel"`
+	NumberOfPeriods                interface{}   `json:"numberOfPeriods"`
+	OverageCalculationOption       interface{}   `json:"overageCalculationOption"`
+	OverageUnusedUnitsCreditOption interface{}   `json:"overageUnusedUnitsCreditOption"`
+	UnusedUnitsCreditRates         interface{}   `json:"unusedUnitsCreditRates"`
+	UsageRecordRatingOption        interface{}   `json:"usageRecordRatingOption"`
+	Segment                        int           `json:"segment"`
+	EffectiveStartDate             string        `json:"effectiveStartDate"`
+	EffectiveEndDate               string        `json:"effectiveEndDate"`
+	ProcessedThroughDate           interface{}   `json:"processedThroughDate"`
+	ChargedThroughDate             interface{}   `json:"chargedThroughDate"`
+	Done                           bool          `json:"done"`
+	TriggerDate                    interface{}   `json:"triggerDate"`
+	TriggerEvent                   string        `json:"triggerEvent"`
+	EndDateCondition               string        `json:"endDateCondition"`
+	UpToPeriodsType                interface{}   `json:"upToPeriodsType"`
+	UpToPeriods                    interface{}   `json:"upToPeriods"`
+	SpecificEndDate                interface{}   `json:"specificEndDate"`
+	Mrr                            float64       `json:"mrr"`
+	Dmrc                           float64       `json:"dmrc"`
+	Tcv                            int           `json:"tcv"`
+	Dtcv                           int           `json:"dtcv"`
+	Description                    string        `json:"description"`
 }
