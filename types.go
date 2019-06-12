@@ -4,7 +4,7 @@ import (
 	"net/http"
 )
 
-//Token represents the OAuth token returned by Zuora.
+// Token represents the OAuth token returned by Zuora.
 type Token struct {
 	AccessToken string `json:"access_token"`
 	TokenType   string `json:"token_type"`
@@ -13,10 +13,10 @@ type Token struct {
 	Jti         string `json:"jti"`
 }
 
-//ConfigOption helper function to modify current Config struct
+// ConfigOption helper function to modify current Config struct
 type ConfigOption func(*Config)
 
-//Config is the base configuration to return ZuoraApi
+// Config is the base configuration to return ZuoraApi
 type Config struct {
 	HTTPClient   *http.Client
 	BaseURL      string
@@ -25,20 +25,20 @@ type Config struct {
 	tokenStore   TokenStorer
 }
 
-//TokenStorer handles token renewal with two simple methods.
-//Token() returns a boolean to indicate a token is valid and if valid, it will return the active token.
-//Update() causes a side-effect to update a token in whichever backing store you choose.
+// TokenStorer handles token renewal with two simple methods.
+// Token() returns a boolean to indicate a token is valid and if valid, it will return the active token.
+// Update() causes a side-effect to update a token in whichever backing store you choose.
 type TokenStorer interface {
 	Token() (bool, *Token)
 	Update(*Token)
 }
 
-//Querier One who, or that which, queries actions
+// Querier One who, or that which, queries actions
 type Querier interface {
 	Build() string
 }
 
-//Product with default fields from Zuora. It does not include custom fields.
+// Product with default fields from Zuora. It does not include custom fields.
 type Product struct {
 	ID                 string `json:"Id"`
 	Category           string `json:"Category,omitempty"`
@@ -53,7 +53,7 @@ type Product struct {
 	Description        string `json:"Description,omitempty"`
 }
 
-//ProductRatePlan with default fields from Zuora. It does not include custom fields.
+// ProductRatePlan with default fields from Zuora. It does not include custom fields.
 type ProductRatePlan struct {
 	ActiveCurrencies   string `json:"ActiveCurrencies,omitempty"`
 	ProductID          string `json:"ProductId"`
