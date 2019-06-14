@@ -227,7 +227,7 @@ type Subscription struct {
 	RenewalTerm               int        `json:"renewalTerm"`
 	RenewalTermPeriodType     string     `json:"renewalTermPeriodType"`
 	ContractedMrr             float64    `json:"contractedMrr"`
-	TotalContractedValue      int        `json:"totalContractedValue"`
+	TotalContractedValue      float64    `json:"totalContractedValue"`
 	Notes                     string     `json:"notes"`
 	Status                    string     `json:"status"`
 	RatePlans                 []RatePlan `json:"ratePlans"`
@@ -258,7 +258,7 @@ type RatePlanCharge struct {
 	PriceChangeOption              string        `json:"priceChangeOption"`
 	PriceIncreasePercentage        interface{}   `json:"priceIncreasePercentage"`
 	Currency                       string        `json:"currency"`
-	Price                          int           `json:"price"`
+	Price                          float64       `json:"price"`
 	Tiers                          interface{}   `json:"tiers"`
 	IncludedUnits                  interface{}   `json:"includedUnits"`
 	OveragePrice                   interface{}   `json:"overagePrice"`
@@ -295,7 +295,7 @@ type RatePlanCharge struct {
 	SpecificEndDate                interface{}   `json:"specificEndDate"`
 	Mrr                            float64       `json:"mrr"`
 	Dmrc                           float64       `json:"dmrc"`
-	Tcv                            int           `json:"tcv"`
-	Dtcv                           int           `json:"dtcv"`
+	Tcv                            float64       `json:"tcv"`
+	Dtcv                           float64       `json:"dtcv"`
 	Description                    string        `json:"description"`
 }
