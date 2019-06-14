@@ -235,6 +235,7 @@ type Subscription struct {
 
 type RatePlan struct {
 	ID                string           `json:"id"`
+	LastChangeType    string           `json:"lastChangeType"`
 	ProductID         string           `json:"productId"`
 	ProductName       string           `json:"productName"`
 	ProductSku        string           `json:"productSku"`
