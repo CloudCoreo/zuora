@@ -274,7 +274,7 @@ type RatePlanCharge struct {
 	SpecificBillingPeriod          interface{}   `json:"specificBillingPeriod"`
 	BillingTiming                  string        `json:"billingTiming"`
 	BillingPeriodAlignment         string        `json:"billingPeriodAlignment"`
-	Quantity                       int           `json:"quantity"`
+	Quantity                       float64       `json:"quantity"`
 	SmoothingModel                 interface{}   `json:"smoothingModel"`
 	NumberOfPeriods                interface{}   `json:"numberOfPeriods"`
 	OverageCalculationOption       interface{}   `json:"overageCalculationOption"`
